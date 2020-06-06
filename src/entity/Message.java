@@ -14,8 +14,7 @@ public class Message {
     public Message() {
     }
 
-    public Message(int messageId, int userId, int roomId, String content) {
-        MessageId = messageId;
+    public Message(int userId, int roomId, String content) {
         this.userId = userId;
         this.roomId = roomId;
         Date date = new Date();

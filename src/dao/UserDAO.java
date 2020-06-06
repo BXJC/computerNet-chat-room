@@ -27,6 +27,9 @@ public class UserDAO {
         }catch (Exception e){
             e.printStackTrace();
         }
+        finally {
+            DBUtil.closeAll(conn,ps,rs);
+        }
         return false;
     }
 
@@ -42,12 +45,15 @@ public class UserDAO {
             rs = ps.executeQuery();
             if(rs.next())
             {
-                user.setUserId(rs.getInt("userId"));
+                user.setUserId(id);
                 user.setNickname(rs.getString("nickname"));
                 return user;
             }
         }catch (Exception e){
             e.printStackTrace();
+        }
+        finally {
+            DBUtil.closeAll(conn,ps,rs);
         }
         return null;
     }
@@ -67,6 +73,9 @@ public class UserDAO {
         }catch (Exception e){
             e.printStackTrace();
         }
+        finally {
+            DBUtil.closeAll(conn,ps,rs);
+        }
         return -1;
     }
 
@@ -85,6 +94,9 @@ public class UserDAO {
         }catch (Exception e){
             e.printStackTrace();
         }
+        finally {
+            DBUtil.closeAll(conn,ps,rs);
+        }
         return -1;
     }
 
@@ -102,6 +114,9 @@ public class UserDAO {
             return getNewId();
         }catch (Exception e){
             e.printStackTrace();
+        }
+        finally {
+            DBUtil.closeAll(conn,ps,rs);
         }
         return -1;
     }
@@ -122,6 +137,9 @@ public class UserDAO {
             return userList;
         }catch (Exception e){
             e.printStackTrace();
+        }
+        finally {
+            DBUtil.closeAll(conn,ps,rs);
         }
         return null;
     }

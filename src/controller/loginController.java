@@ -51,7 +51,7 @@ public class loginController {
                     Scene scene = new Scene(root, 456, 282);
                     mainStage.setScene(scene);
                     mainController controller = fxmlLoader.getController();   //获取Controller的实例对象
-                    controller.Init(userDAO.getUserById(Integer.parseInt(strId)).getNickname(),chatClient);
+                    controller.Init(userDAO.getUserById(Integer.parseInt(strId)),chatClient);
                     mainStage.show();
                     ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
                     chatClient.sendMessage(strId);

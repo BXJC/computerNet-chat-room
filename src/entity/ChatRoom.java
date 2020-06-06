@@ -8,6 +8,12 @@ public class ChatRoom {
     private List<User> userList;
     private List<Message> messageList;
 
+    public ChatRoom(String roomName, List<User> userList, List<Message> messageList) {
+        this.roomName = roomName;
+        this.userList = userList;
+        this.messageList = messageList;
+    }
+
     public ChatRoom(int roomId, String roomName, List<User> userList, List<Message> messageList) {
         this.roomId = roomId;
         this.roomName = roomName;

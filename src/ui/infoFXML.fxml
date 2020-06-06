@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="130.0" prefWidth="393.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.enterInfoController">
+   <children>
+      <Label layoutX="20.0" layoutY="58.0" text="Enter your friend's id:" />
+      <TextField fx:id="idText" layoutX="157.0" layoutY="54.0" />
+      <Button layoutX="340.0" layoutY="54.0" mnemonicParsing="false" onAction="#OK" text="OK" />
+   </children>
+</AnchorPane>

@@ -39,7 +39,8 @@ public class Server {
                     String content = whole[0];
                     if(whole.length == 2){
                         int userId = Integer.parseInt(whole[1]);
-                        clientMap.getClientHandler(userId).sendMessage(content);
+                        if(clientMap.getClientHandler(userId) != null)
+                            clientMap.getClientHandler(userId).sendMessage(content);
                     }
                     else {
                             List<Integer> idList = new ArrayList<>();

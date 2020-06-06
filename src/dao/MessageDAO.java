@@ -54,6 +54,28 @@ public class MessageDAO {
         }catch (Exception e){
             e.printStackTrace();
         }
+        finally {
+            DBUtil.closeAll(conn,ps,rs);
+        }
         return messageList;
+    }
+
+    public void newMessage(Message message){
+        Connection conn = DBUtil.getconn();
+        PreparedStatement ps = null;
+        try {
+            String sql ="insert into messageList (userid,roomid,time,content) values (?,?,?,?)";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,message.getUserId());
+            ps.setInt(2,message.getRoomId());
+            ps.setString(3,message.getTime());
+            ps.setString(4,message.getContent());
+            ps.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            DBUtil.closeAll(conn,ps,null);
+        }
     }
 }
