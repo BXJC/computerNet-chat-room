@@ -14,13 +14,6 @@ public class ChatRoom {
         this.messageList = messageList;
     }
 
-    public ChatRoom(int roomId, String roomName, List<User> userList, List<Message> messageList) {
-        this.roomId = roomId;
-        this.roomName = roomName;
-        this.userList = userList;
-        this.messageList = messageList;
-    }
-
     public List<User> getUserList() {
         return userList;
     }

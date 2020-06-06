@@ -43,9 +43,35 @@ public class mainController {
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
 
-    public void EnterChatRoom(ActionEvent actionEvent) {
+    public void EnterChatRoom(ActionEvent actionEvent) throws Exception{
+        Stage mainStage = new Stage();
+        URL location = getClass().getResource("/ui/enterChatRoomFXML.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        Parent root = fxmlLoader.load();
+        mainStage.setTitle("I Chat");
+        Scene scene = new Scene(root, 441, 144);
+        mainStage.setScene(scene);
+        enterChatRoomController controller = fxmlLoader.getController();   //获取Controller的实例对象
+        controller.Init(user,chatClient);
+        mainStage.show();
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
 
-    public void createChatRoom(ActionEvent actionEvent) {
+    public void createChatRoom(ActionEvent actionEvent) throws Exception{
+        Stage mainStage = new Stage();
+        URL location = getClass().getResource("/ui/newChatRoomFXML.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        Parent root = fxmlLoader.load();
+        mainStage.setTitle("I Chat");
+        Scene scene = new Scene(root, 458, 348);
+        mainStage.setScene(scene);
+        newChatRoomController controller = fxmlLoader.getController();   //获取Controller的实例对象
+        controller.Init(user,chatClient);
+        mainStage.show();
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
 }

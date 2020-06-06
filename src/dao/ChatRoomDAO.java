@@ -6,13 +6,16 @@ import entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatRoomDAO {
-    public boolean getChatRoomById(int roomId){
+    public ChatRoom getChatRoomById(int roomId){
+        MessageDAO messageDAO = new MessageDAO();
         Connection conn = DBUtil.getconn();
         PreparedStatement ps = null;
         ResultSet rs = null;
+        ChatRoom chatRoom;
         try {
             String sql ="select * from chatRoom where roomId = ?";
             ps = conn.prepareStatement(sql);
@@ -20,7 +23,9 @@ public class ChatRoomDAO {
             rs = ps.executeQuery();
             if(rs.next())
             {
-                return true;
+                chatRoom = new ChatRoom(rs.getString("roomName"),getUserListByRoomId(roomId),messageDAO.getMessageByRoomId(roomId));
+                chatRoom.setRoomId(roomId);
+                return chatRoom;
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -28,7 +33,7 @@ public class ChatRoomDAO {
         finally {
             DBUtil.closeAll(conn,ps,rs);
         }
-        return false;
+        return null;
     }
 
     public int getNewId(){
@@ -91,6 +96,29 @@ public class ChatRoomDAO {
             DBUtil.closeAll(conn,ps,null);
         }
         return -1;
+    }
+
+    public List<User> getUserListByRoomId(int roomId){
+        UserDAO userDAO = new UserDAO();
+        Connection conn = DBUtil.getconn();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<User> userList =  new ArrayList<>();
+        try {
+                String sql ="select * from userList where roomId = ?";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1,roomId);
+                rs = ps.executeQuery();
+                while (rs.next())
+                {
+                    userList.add(userDAO.getUserById(rs.getInt("userId")));
+                }
+                return userList;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        DBUtil.closeAll(conn,ps,null);
+        return null;
     }
 
     public int insertUserList(ChatRoom chatRoom){

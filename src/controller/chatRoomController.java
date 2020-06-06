@@ -14,24 +14,25 @@ import other.ChatClient;
 
 import java.util.List;
 
-public class twoPeopleChatController extends Thread{
+public class chatRoomController extends Thread{
     @FXML TextArea messageArea;
     @FXML TextField messageToSend;
-    @FXML Label chatWith;
+    @FXML Label chatRoomName;
     private UserDAO userDAO = new UserDAO();
     private MessageDAO messageDAO = new MessageDAO();
-    private User user1;
-    private User user2;
+    private List<User> userList;
     private ChatClient chatClient;
     private String msg = "";
     private ChatRoom chatRoom;
+    private User currentUser;
     private boolean initMessageList = false;
-    public void Init(ChatClient chatClient, ChatRoom chatRoom){
-        this.user1 = chatRoom.getUserList().get(0);
-        this.user2 = chatRoom.getUserList().get(1);
+
+    public void Init(User user, ChatClient chatClient, ChatRoom chatRoom){
+        this.currentUser = user;
+        userList = chatRoom.getUserList();
         this.chatRoom = chatRoom;
         this.chatClient = chatClient;
-        chatWith.setText("Chat with: " + user2.getNickname());
+        chatRoomName.setText(chatRoom.getRoomName());
         for(Message message : chatRoom.getMessageList())
             msg += message.getTime() + ": " + userDAO.getUserById(message.getUserId()).getNickname() + "\n" + message.getContent() + "\n";
         if (chatRoom.getMessageList().size() != 0) initMessageList = true;
@@ -41,29 +42,35 @@ public class twoPeopleChatController extends Thread{
 
     public void Send(ActionEvent actionEvent) throws Exception{
         String content = messageToSend.getText();
-        Message message = new Message(user1.getUserId(),chatRoom.getRoomId(),content);
-        String msg = message.getTime() + "&" + userDAO.getUserById(message.getUserId()).getNickname() + "&" + content + "&" + chatRoom.getRoomId() + "|" + user2.getUserId();
+        Message message = new Message(currentUser.getUserId(),chatRoom.getRoomId(),content);
+        String msg = message.getTime() + "&" + userDAO.getUserById(message.getUserId()).getNickname() + "&" + content + "&" + chatRoom.getRoomId();
+        for(User user : userList)
+            msg += "|" + user.getUserId();
         chatClient.sendMessage(msg);
         messageDAO.newMessage(message);
-        messageArea.appendText(message.getTime() + ": " + userDAO.getUserById(message.getUserId()).getNickname() + "\n" + message.getContent() + "\n");
+//        messageArea.appendText(message.getTime() + ": " + userDAO.getUserById(message.getUserId()).getNickname() + "\n" + message.getContent() + "\n");
         messageToSend.clear();
     }
 
     public synchronized void run(){
-        if(initMessageList)
-        {
-            while(true) {
-                try {
-                    chatClient.getMessage();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+//        String str;
+//        if(initMessageList)
+//        {
+//            while(true) {
+//                try {
+//                    str = chatClient.getMessage();
+//                    if(str.isEmpty()) break;
+//                    System.out.println("忽略消息： " + str);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
         String message;
         while (true) {
             try {
                 if ((message = chatClient.getMessage()) != null){
+                    System.out.println("接收消息: " + message);
                     String []whole = message.split("&");
                     if(chatRoom.getRoomId() == Integer.parseInt(whole[3]))
                     {

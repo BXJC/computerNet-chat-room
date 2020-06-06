@@ -32,7 +32,6 @@ public class Server {
                 int id = Integer.parseInt(input.readLine());
                 System.out.println("连接到了id为" + id + "的用户");
                 clientMap.clientHandlerMap.put(id,this);
-
                 while ((msg = input.readLine()) != null) {
                     System.out.println("收到来自id:" + id + " 的消息：" + msg);
                     String []whole = msg.split("\\|");
@@ -48,7 +47,10 @@ public class Server {
                                 idList.add(Integer.parseInt(whole[i]));
                             synchronized (this){
                                 for(ClientHandler clientHandler : clientMap.getClientHandlerList(idList))
+                                {
                                     clientHandler.sendMessage(content);
+                                    System.out.println("发送消息：" + content + "给id为" + id + "的用户");
+                                }
                             }
                     }
 

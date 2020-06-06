@@ -73,8 +73,8 @@ public class enterInfoController {
         }
         else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("警告");
-            alert.setContentText("请检查id是否输入正确！");
+            alert.setHeaderText("Warning");
+            alert.setContentText("Please check the id you entered！");
             alert.show();
         }
     }

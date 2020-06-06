@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ClientMap {
     public Map<Integer, Server.ClientHandler> clientHandlerMap = new HashMap<>();
-
+    private Server.ClientHandler clientHandler;
     public Server.ClientHandler getClientHandler(int id){
         return clientHandlerMap.get(id);
     }
@@ -17,7 +17,8 @@ public class ClientMap {
     public List<Server.ClientHandler> getClientHandlerList(List<Integer> idList){
         List<Server.ClientHandler> clientHandlerList = new ArrayList<>();
         for(int a : idList){
-            clientHandlerList.add(clientHandlerMap.get(a));
+            if((clientHandler = clientHandlerMap.get(a)) != null)
+            clientHandlerList.add(clientHandler);
         }
         return clientHandlerList;
     }

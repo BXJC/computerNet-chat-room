@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="348.0" prefWidth="458.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.newChatRoomController">
+   <children>
+      <ListView fx:id="idTextList" layoutX="43.0" layoutY="157.0" prefHeight="177.0" prefWidth="315.0" />
+      <Label layoutX="46.0" layoutY="88.0" text="Who do you want to invite? ">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="73.0" layoutY="118.0" text="Enter his/her id:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="idToInvite" layoutX="188.0" layoutY="116.0" />
+      <Button layoutX="367.0" layoutY="116.0" mnemonicParsing="false" onAction="#invite" prefHeight="23.0" prefWidth="60.0" text="Invite" />
+      <Label layoutX="143.0" layoutY="14.0" text="Create a Chatroom">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="367.0" layoutY="181.0" mnemonicParsing="false" onAction="#remove" text="remove" />
+      <Button layoutX="367.0" layoutY="288.0" mnemonicParsing="false" onAction="#OK" prefHeight="23.0" prefWidth="60.0" text="OK" />
+      <Label layoutX="24.0" layoutY="61.0" text="Enter a name for your chatroom:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="chatRoomName" layoutX="260.0" layoutY="59.0" />
+   </children>
+</AnchorPane>

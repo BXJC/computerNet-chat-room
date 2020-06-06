@@ -31,8 +31,8 @@ public class loginController {
         if(strId.isEmpty() || strPwd.isEmpty())
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("警告");
-            alert.setContentText("用户名和密码均不能为空！");
+            alert.setHeaderText("Warning");
+            alert.setContentText("User id and password both can't be empty！");
             alert.show();
         }
         else
@@ -57,8 +57,8 @@ public class loginController {
                     chatClient.sendMessage(strId);
                 }catch (Exception e){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText("警告");
-                    alert.setContentText("未能连接到服务器！");
+                    alert.setHeaderText("Warning");
+                    alert.setContentText("Can't connect to server！");
                     alert.show();
                     e.printStackTrace();
                 }
@@ -67,8 +67,8 @@ public class loginController {
             else
             {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("警告");
-                alert.setContentText("用户名或密码错误！");
+                alert.setHeaderText("Warning");
+                alert.setContentText("Wrong user id or password！");
                 alert.show();
                 password.clear();
             }
