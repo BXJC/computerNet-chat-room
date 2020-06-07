@@ -7,11 +7,18 @@ import entity.Message;
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import other.ChatClient;
 
+import java.net.URL;
 import java.util.List;
 
 public class chatRoomController extends Thread{
@@ -26,7 +33,6 @@ public class chatRoomController extends Thread{
     private ChatRoom chatRoom;
     private User currentUser;
     private boolean initMessageList = false;
-
     public void Init(User user, ChatClient chatClient, ChatRoom chatRoom){
         this.currentUser = user;
         userList = chatRoom.getUserList();
@@ -53,19 +59,6 @@ public class chatRoomController extends Thread{
     }
 
     public synchronized void run(){
-//        String str;
-//        if(initMessageList)
-//        {
-//            while(true) {
-//                try {
-//                    str = chatClient.getMessage();
-//                    if(str.isEmpty()) break;
-//                    System.out.println("忽略消息： " + str);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
         String message;
         while (true) {
             try {
@@ -82,5 +75,25 @@ public class chatRoomController extends Thread{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void chatRoomRet(ActionEvent actionEvent) throws Exception{
+        Stage mainStage = new Stage();
+        URL location = getClass().getResource("/ui/mainFXML.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        Parent root = fxmlLoader.load();
+        mainStage.setTitle("I Chat");
+        Scene scene = new Scene(root, 456, 282);
+        mainStage.setScene(scene);
+        mainController controller = fxmlLoader.getController();   //获取Controller的实例对象
+        controller.Init(currentUser,chatClient);
+//                    mainStage.initStyle(StageStyle.TRANSPARENT); /* 透明标题栏 */
+//                    mainStage.setResizable(false); /* 设置窗口不可改变 */
+//                    mainStage.setAlwaysOnTop(true);
+        this.stop();
+        mainStage.show();
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
 }

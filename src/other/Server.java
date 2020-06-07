@@ -14,6 +14,7 @@ public class Server {
         private final Socket socket;
         private final ClientMap clientMap;
         private BufferedWriter output;
+        int id;
         private ClientHandler(Socket socket,ClientMap clientMap){
             this.socket = socket;
             this.clientMap = clientMap;
@@ -29,7 +30,7 @@ public class Server {
                 OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
                 output = new BufferedWriter(osw);
                 String msg = null;
-                int id = Integer.parseInt(input.readLine());
+                id = Integer.parseInt(input.readLine());
                 System.out.println("连接到了id为" + id + "的用户");
                 clientMap.clientHandlerMap.put(id,this);
                 while ((msg = input.readLine()) != null) {
@@ -39,17 +40,21 @@ public class Server {
                     if(whole.length == 2){
                         int userId = Integer.parseInt(whole[1]);
                         if(clientMap.getClientHandler(userId) != null)
+                        {
                             clientMap.getClientHandler(userId).sendMessage(content);
+                            System.out.println("发送消息：" + content + "给id为" + clientMap.getClientHandler(userId).id + "的用户");
+                        }
                     }
                     else {
                             List<Integer> idList = new ArrayList<>();
                             for(int i = 1; i < whole.length ; i++)
                                 idList.add(Integer.parseInt(whole[i]));
+                            System.out.println("idList : " + idList);
                             synchronized (this){
                                 for(ClientHandler clientHandler : clientMap.getClientHandlerList(idList))
                                 {
                                     clientHandler.sendMessage(content);
-                                    System.out.println("发送消息：" + content + "给id为" + id + "的用户");
+                                    System.out.println("发送消息：" + content + "给id为" + clientHandler.id + "的用户");
                                 }
                             }
                     }

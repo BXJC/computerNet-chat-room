@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import other.ChatClient;
 
 import java.net.URL;
@@ -27,7 +28,6 @@ public class mainController {
 
 
     public void startNewChat(ActionEvent actionEvent) throws Exception{
-//        chatClient.sendMessage("Hi");
         Stage mainStage = new Stage();
         URL location = getClass().getResource("/ui/infoFXML.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -39,6 +39,9 @@ public class mainController {
         mainStage.setScene(scene);
         enterInfoController controller = fxmlLoader.getController();   //获取Controller的实例对象
         controller.Init(user,chatClient);
+//        mainStage.initStyle(StageStyle.TRANSPARENT); /* 透明标题栏 */
+        mainStage.setResizable(false); /* 设置窗口不可改变 */
+//        mainStage.setAlwaysOnTop(true);
         mainStage.show();
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
@@ -55,6 +58,9 @@ public class mainController {
         mainStage.setScene(scene);
         enterChatRoomController controller = fxmlLoader.getController();   //获取Controller的实例对象
         controller.Init(user,chatClient);
+//        mainStage.initStyle(StageStyle.TRANSPARENT); /* 透明标题栏 */
+        mainStage.setResizable(false); /* 设置窗口不可改变 */
+//        mainStage.setAlwaysOnTop(true);
         mainStage.show();
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
@@ -71,7 +77,23 @@ public class mainController {
         mainStage.setScene(scene);
         newChatRoomController controller = fxmlLoader.getController();   //获取Controller的实例对象
         controller.Init(user,chatClient);
+//        mainStage.initStyle(StageStyle.TRANSPARENT); /* 透明标题栏 */
+        mainStage.setResizable(false); /* 设置窗口不可改变 */
+//        mainStage.setAlwaysOnTop(true);
         mainStage.show();
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+    }
+
+    public void mainRet(ActionEvent actionEvent) throws Exception{
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/ui/loginFXML.fxml"));
+        Scene scene = new Scene(root,462,256);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("登录");
+//        primaryStage.initStyle(StageStyle.TRANSPARENT); /* 透明标题栏 */
+        primaryStage.setResizable(false); /* 设置窗口不可改变 */
+//        primaryStage.setAlwaysOnTop(true);
+        primaryStage.show();
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
 }

@@ -6,11 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="144.0" prefWidth="441.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.enterChatRoomController">
    <children>
-      <Button layoutX="350.0" layoutY="64.0" mnemonicParsing="false" onAction="#OK" text="OK" />
+      <Button layoutX="350.0" layoutY="64.0" mnemonicParsing="false" onAction="#OK" prefHeight="23.0" prefWidth="53.0" text="OK" />
       <TextField fx:id="idText" layoutX="167.0" layoutY="64.0" />
       <Label layoutX="30.0" layoutY="68.0" text="Enter chatroom's id:" />
+      <Button layoutX="328.0" layoutY="107.0" mnemonicParsing="false" onAction="#enterRoomRet" text="return to main" />
    </children>
 </AnchorPane>

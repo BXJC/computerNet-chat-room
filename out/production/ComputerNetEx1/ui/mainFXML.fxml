@@ -7,7 +7,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="282.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainController">
    <children>
       <Label fx:id="welcome" alignment="CENTER" layoutX="131.0" layoutY="86.0" prefHeight="40.0" prefWidth="196.0" text="Welcome:&quot;" textAlignment="CENTER">
@@ -15,8 +14,9 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="207.0" mnemonicParsing="false" onAction="#startNewChat" text="Chat with a friend" />
-      <Button layoutX="169.0" layoutY="207.0" mnemonicParsing="false" onAction="#EnterChatRoom" text="Enter a chat room" />
-      <Button layoutX="313.0" layoutY="207.0" mnemonicParsing="false" onAction="#createChatRoom" text="Create a chat room" />
+      <Button layoutX="14.0" layoutY="178.0" mnemonicParsing="false" onAction="#startNewChat" text="Chat with a friend" />
+      <Button layoutX="315.0" layoutY="178.0" mnemonicParsing="false" onAction="#EnterChatRoom" text="Enter a chat room" />
+      <Button layoutX="166.0" layoutY="178.0" mnemonicParsing="false" onAction="#createChatRoom" text="Create a chat room" />
+      <Button layoutX="201.0" layoutY="227.0" mnemonicParsing="false" onAction="#mainRet" text="log out" />
    </children>
 </AnchorPane>

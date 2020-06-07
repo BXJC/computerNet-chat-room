@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import other.ChatClient;
 
 import java.net.URL;
@@ -68,6 +69,9 @@ public class enterInfoController {
             chatStage.setScene(scene);
             twoPeopleChatController controller = fxmlLoader.getController();   //获取Controller的实例对象
             controller.Init(chatClient,chatRoom);
+//            chatStage.initStyle(StageStyle.TRANSPARENT); /* 透明标题栏 */
+            chatStage.setResizable(false); /* 设置窗口不可改变 */
+//            chatStage.setAlwaysOnTop(true);
             chatStage.show();
             ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         }
@@ -77,5 +81,24 @@ public class enterInfoController {
             alert.setContentText("Please check the id you entered！");
             alert.show();
         }
+    }
+
+    public void enterRet(ActionEvent actionEvent) throws Exception{
+        Stage mainStage = new Stage();
+        URL location = getClass().getResource("/ui/mainFXML.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        Parent root = fxmlLoader.load();
+        mainStage.setTitle("I Chat");
+        Scene scene = new Scene(root, 452, 254);
+        mainStage.setScene(scene);
+        mainController controller = fxmlLoader.getController();   //获取Controller的实例对象
+        controller.Init(user1,chatClient);
+//        mainStage.initStyle(StageStyle.TRANSPARENT); /* 透明标题栏 */
+        mainStage.setResizable(false); /* 设置窗口不可改变 */
+//        mainStage.setAlwaysOnTop(true);
+        mainStage.show();
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
 }

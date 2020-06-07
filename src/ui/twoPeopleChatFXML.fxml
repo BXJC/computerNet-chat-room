@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="559.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.twoPeopleChatController">
+<AnchorPane prefHeight="559.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.twoPeopleChatController">
    <children>
       <TextField fx:id="messageToSend" layoutX="109.0" layoutY="497.0" prefHeight="31.0" prefWidth="496.0" />
       <TextArea fx:id="messageArea" editable="false" layoutX="109.0" layoutY="90.0" prefHeight="394.0" prefWidth="609.0" />
@@ -18,6 +17,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="780.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" text="×" />
+      <Button layoutX="620.0" layoutY="35.0" mnemonicParsing="false" onAction="#chatRoomRet" prefHeight="31.0" prefWidth="99.0" text="return to main" />
    </children>
 </AnchorPane>

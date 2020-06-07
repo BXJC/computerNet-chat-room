@@ -62,13 +62,15 @@ public class ChatRoomDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            String sql = "select roomId from userList where userId = ? and roomId = (select roomId from userList where userid = ?)";
+            String sql = "select * from chatRoom";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1,user1.getUserId());
-            ps.setInt(2,user2.getUserId());
             rs = ps.executeQuery();
-            if(rs.next())
-                return rs.getInt(1);
+            while(rs.next())
+            {
+                String []whole = rs.getString("roomname").split(" ")[1].split("\\|");
+                if((whole[0].equals(user1.getNickname()) && whole[1].equals(user2.getNickname())) || (whole[1].equals(user1.getNickname()) && whole[0].equals(user2.getNickname())))
+                    return rs.getInt("roomId");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

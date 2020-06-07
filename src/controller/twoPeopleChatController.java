@@ -7,11 +7,20 @@ import entity.Message;
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import other.ChatClient;
 
+import java.net.URL;
 import java.util.List;
 
 public class twoPeopleChatController extends Thread{
@@ -41,29 +50,28 @@ public class twoPeopleChatController extends Thread{
 
     public void Send(ActionEvent actionEvent) throws Exception{
         String content = messageToSend.getText();
-        Message message = new Message(user1.getUserId(),chatRoom.getRoomId(),content);
-        String msg = message.getTime() + "&" + userDAO.getUserById(message.getUserId()).getNickname() + "&" + content + "&" + chatRoom.getRoomId() + "|" + user2.getUserId();
-        chatClient.sendMessage(msg);
-        messageDAO.newMessage(message);
-        messageArea.appendText(message.getTime() + ": " + userDAO.getUserById(message.getUserId()).getNickname() + "\n" + message.getContent() + "\n");
-        messageToSend.clear();
+        if(content.isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Warning");
+            alert.setContentText("message can't be empty！");
+            alert.show();
+        }else {
+            Message message = new Message(user1.getUserId(),chatRoom.getRoomId(),content);
+            String msg = message.getTime() + "&" + userDAO.getUserById(message.getUserId()).getNickname() + "&" + content + "&" + chatRoom.getRoomId() + "|" + user2.getUserId();
+            chatClient.sendMessage(msg);
+            messageDAO.newMessage(message);
+            messageArea.appendText(message.getTime() + ": " + userDAO.getUserById(message.getUserId()).getNickname() + "\n" + message.getContent() + "\n");
+            messageToSend.clear();
+        }
     }
 
     public synchronized void run(){
-        if(initMessageList)
-        {
-            while(true) {
-                try {
-                    chatClient.getMessage();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
         String message;
         while (true) {
             try {
                 if ((message = chatClient.getMessage()) != null){
+                    System.out.println("接收消息: " + message);
                     String []whole = message.split("&");
                     if(chatRoom.getRoomId() == Integer.parseInt(whole[3]))
                     {
@@ -75,5 +83,24 @@ public class twoPeopleChatController extends Thread{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void chatRoomRet(ActionEvent actionEvent) throws Exception{
+
+        Stage mainStage = new Stage();
+        URL location = getClass().getResource("/ui/mainFXML.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        Parent root = fxmlLoader.load();
+        mainStage.setTitle("I Chat");
+        Scene scene = new Scene(root, 452, 254);
+        mainStage.setScene(scene);
+        mainController controller = fxmlLoader.getController();   //获取Controller的实例对象
+        controller.Init(user1,chatClient);
+        mainStage.setResizable(false); /* 设置窗口不可改变 */
+//        this.stop();
+        mainStage.show();
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
 }
